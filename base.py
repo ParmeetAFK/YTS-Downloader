@@ -3,15 +3,23 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
 
-movielinks = []
-col_page = urlopen("https://yts.ms/browse-movies?page=1")
-soup2 = BeautifulSoup(col_page)
-for i in soup2.findAll('a' , attrs={'class' : ("text--bold palewhite title") }):
-	movielinks.append(i)
+def get_pages():
 
-boss = []
+	# ----------------------------  Scraps Movie page   --------------------------------------------- #
 
+	#================================  URL without end variable  ========================================#
 
+	#================================  Regular Expression  ========================================#
+
+	movielinks = []
+	col_page = urlopen("https://yts.ms/browse-movies?page=1")
+	soup2 = BeautifulSoup(col_page)
+	for i in soup2.findAll('a' , attrs={'class' : ("text--bold palewhite title") }):
+		movielinks.append(i)
+
+	boss = ['Powerbomb']  #------------------------------------------------------------------------- Hold name of movie 
+	voss = ["/movie/powerbomb-2020"]  #------------------------------------------------------------------------- Hold link for movie 
+	 
 
 
 def get_files():
