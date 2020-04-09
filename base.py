@@ -53,30 +53,30 @@ def get_files():
 
 
 	elif(d_num == 3.0):
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
+		links.append(popu[3])
+		links.append(popu[4])
+		links.append(popu[5])
 
 	elif(d_num == 4.0):
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
+		links.append(popu[4])
+		links.append(popu[5])
+		links.append(popu[6])
+		links.append(popu[7])
 
 	elif(d_num == 5.0):
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
+		links.append(popu[5])
+		links.append(popu[6])
+		links.append(popu[7])
+		links.append(popu[8])
+		links.append(popu[9])
 
 	elif(d_num == 6):
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
-		links.append(popu[0])
+		links.append(popu[6])
+		links.append(popu[7])
+		links.append(popu[8])
+		links.append(popu[9])
+		links.append(popu[10])
+		links.append(popu[11])
 
 
 def download_file():
