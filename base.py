@@ -3,13 +3,16 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
 
+
+boss = []  #------------------------------------------------------------------------- Hold name of movie 
+voss = []  #------------------------------------------------------------------------- Hold link for movie 
+
+
 def get_pages():
 
-	# ----------------------------  Scraps Movie page   --------------------------------------------- #
+	    # ----------------------------  Scraps Movie page   --------------------------------------------- #
 
 	#================================  URL without end variable  ========================================#
-
-	#================================  Regular Expression  ========================================#
 
 	movielinks = []
 	col_page = urlopen("https://yts.ms/browse-movies?page=1")
@@ -17,39 +20,31 @@ def get_pages():
 	for i in soup2.findAll('a' , attrs={'class' : ("text--bold palewhite title") }):
 		movielinks.append(str(i))
 
-	boss = []  #------------------------------------------------------------------------- Hold name of movie 
-	voss = []  #------------------------------------------------------------------------- Hold link for movie 
-	 
 	for b in range(len(movielinks)):   # ------------------------------------------------ Regex for Movie Name
 		xname = re.search('>(.+?)<',movielinks[b])
 		boss.append(xname.group(1))
 
 
-	for v in range(len(movielinks)):   #-------------------------------------------------- Regex for Movie Link
+	for v in range(len(movielinks)):   #------------------------------------------------- Regex for Movie Link
 		xlink = re.search('href=(".+?")',movielinks[v])
 		voss.append(xlink.group(1))
-
-	print(boss)
-	print('\n')
-	print('\n')
-	print(voss)
 
 def get_files():
 
 
 	# ----------------------------  Gets Download Links  --------------------------------------------- #
 
-	#================================  URL without end variable  ========================================#
+	# ================================  URL without end variable  ======================================== #
 
 
 
-	movie_page = urlopen("https://yts.ms/movie/underwater-2020")
+	movie_page = urlopen("https://yts.ms" + str(voss[mlink]))
 	soup = BeautifulSoup(movie_page)
 	links = [] 
 	popu = []
 
 	for link in soup.findAll('a', attrs={'href': re.compile("^https://yts.lt/torrent/download/")}):
-	    popu.append(str(link.get('href')))
+	    popu.append(str(link))
 
 	d_num = (len(popu)/2)
 	print(d_num)
@@ -96,12 +91,18 @@ def download_file():
 
 	#================================  URL without end variable  ========================================#
 
-	XXSurl = 'https://yts.mx/torrent/download/7A35102A1B717B98F73975C492ABB7A23BBE548D'
+	url = 'https://yts.mx/torrent/download' + str(dlink)
 	r = requests.get(url, allow_redirects=True)
 
 	open('bless.torrent', 'wb').write(r.content)
 
+
+
 get_pages()
+for mlink in range(len(voss)):
+	get_files()
+
+print("done")
 
 
 #['https://yts.lt/torrent/download/8BF2C6472B247569739A5DCA17BBFC0457F94B9A', 'https://yts.lt/torrent/download/DFAEA19933AB21A461848516B31050C8F6BFF0DD', 'https://yts.lt/torrent/download/8BF2C6472B247569739A5DCA17BBFC0457F94B9A', 'https://yts.lt/torrent/download/DFAEA19933AB21A461848516B31050C8F6BFF0DD']
