@@ -26,28 +26,30 @@ def get_pages():
 
 
 	for v in range(len(movielinks)):   #------------------------------------------------- Regex for Movie Link
-		xlink = re.search('href=(".+?")',movielinks[v])
+		xlink = re.search('href="(.+?)">',movielinks[v])
 		voss.append(xlink.group(1))
+
 
 def get_files():
 
 
 	# ----------------------------  Gets Download Links  --------------------------------------------- #
 
-	# ================================  URL without end variable  ======================================== #
+	# ================================  Regex Error  ======================================== #
 
 
-
-	movie_page = urlopen("https://yts.ms" + str(voss[mlink]))
+	href = "https://yts.ms" + voss[mlink]
+	movie_page = urlopen(href)
 	soup = BeautifulSoup(movie_page)
 	links = [] 
 	popu = []
 
-	for link in soup.findAll('a', attrs={'href': re.compile("^https://yts.lt/torrent/download/")}):
-	    popu.append(str(link))
+	#'a', attrs={'href': re.compile("^https://yts.lt/torrent/download/")}
+	for link in soup.findAll():
+		print(link)
+		popu.append(str(link))
 
 	d_num = (len(popu)/2)
-	print(d_num)
 
 	if(d_num == 1.0):
 		links.append(popu[1])
@@ -84,6 +86,8 @@ def get_files():
 		links.append(popu[10])
 		links.append(popu[11])
 
+	
+
 
 def download_file():
 
@@ -101,8 +105,4 @@ def download_file():
 get_pages()
 for mlink in range(len(voss)):
 	get_files()
-
-print("done")
-
-
-#['https://yts.lt/torrent/download/8BF2C6472B247569739A5DCA17BBFC0457F94B9A', 'https://yts.lt/torrent/download/DFAEA19933AB21A461848516B31050C8F6BFF0DD', 'https://yts.lt/torrent/download/8BF2C6472B247569739A5DCA17BBFC0457F94B9A', 'https://yts.lt/torrent/download/DFAEA19933AB21A461848516B31050C8F6BFF0DD']
+	
