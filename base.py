@@ -15,12 +15,24 @@ def get_pages():
 	col_page = urlopen("https://yts.ms/browse-movies?page=1")
 	soup2 = BeautifulSoup(col_page)
 	for i in soup2.findAll('a' , attrs={'class' : ("text--bold palewhite title") }):
-		movielinks.append(i)
+		movielinks.append(str(i))
 
-	boss = ['Powerbomb']  #------------------------------------------------------------------------- Hold name of movie 
-	voss = ["/movie/powerbomb-2020"]  #------------------------------------------------------------------------- Hold link for movie 
+	boss = []  #------------------------------------------------------------------------- Hold name of movie 
+	voss = []  #------------------------------------------------------------------------- Hold link for movie 
 	 
+	for b in range(len(movielinks)):   # ------------------------------------------------ Regex for Movie Name
+		xname = re.search('>(.+?)<',movielinks[b])
+		boss.append(xname.group(1))
 
+
+	for v in range(len(movielinks)):   #-------------------------------------------------- Regex for Movie Link
+		xlink = re.search('href=(".+?")',movielinks[v])
+		voss.append(xlink.group(1))
+
+	print(boss)
+	print('\n')
+	print('\n')
+	print(voss)
 
 def get_files():
 
@@ -29,7 +41,6 @@ def get_files():
 
 	#================================  URL without end variable  ========================================#
 
-	#================================  List index values  ========================================#
 
 
 	movie_page = urlopen("https://yts.ms/movie/underwater-2020")
@@ -90,7 +101,7 @@ def download_file():
 
 	open('bless.torrent', 'wb').write(r.content)
 
-
+get_pages()
 
 
 #['https://yts.lt/torrent/download/8BF2C6472B247569739A5DCA17BBFC0457F94B9A', 'https://yts.lt/torrent/download/DFAEA19933AB21A461848516B31050C8F6BFF0DD', 'https://yts.lt/torrent/download/8BF2C6472B247569739A5DCA17BBFC0457F94B9A', 'https://yts.lt/torrent/download/DFAEA19933AB21A461848516B31050C8F6BFF0DD']
