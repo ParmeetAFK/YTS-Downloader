@@ -7,7 +7,6 @@ import re
 boss = []  #------------------------------------------------------------------------- Hold name of movie 
 voss = []  #------------------------------------------------------------------------- Hold link for movie 
 
-
 def get_pages():
 
 	    # ----------------------------  Scraps Movie page   --------------------------------------------- #
@@ -35,19 +34,22 @@ def get_files():
 
 	# ----------------------------  Gets Download Links  --------------------------------------------- #
 
-	# ================================  Regex Error  ======================================== #
-
 
 	href = "https://yts.ms" + voss[mlink]
 	movie_page = urlopen(href)
 	soup = BeautifulSoup(movie_page)
-	links = [] 
+	global links
+	links = []
+	relist = []
 	popu = []
 
-	#'a', attrs={'href': re.compile("^https://yts.lt/torrent/download/")}
-	for link in soup.findAll():
-		print(link)
-		popu.append(str(link))
+
+	for link in soup.findAll('a', attrs={'href': re.compile("^https://yts.lt/torrent/download/")}):
+		relist.append(str(link))
+
+	for co in range(len(relist)):
+		code = re.search('download/(.+?)"',relist[co])
+		popu.append(code.group(1))
 
 	d_num = (len(popu)/2)
 
@@ -57,52 +59,40 @@ def get_files():
 
 	elif(d_num == 2.0):
 		links.append(popu[2])
-		links.append(popu[3])
-
 
 	elif(d_num == 3.0):
-		links.append(popu[3])
 		links.append(popu[4])
-		links.append(popu[5])
 
 	elif(d_num == 4.0):
-		links.append(popu[4])
 		links.append(popu[5])
-		links.append(popu[6])
-		links.append(popu[7])
 
 	elif(d_num == 5.0):
-		links.append(popu[5])
 		links.append(popu[6])
-		links.append(popu[7])
-		links.append(popu[8])
-		links.append(popu[9])
-
+		
 	elif(d_num == 6):
-		links.append(popu[6])
 		links.append(popu[7])
-		links.append(popu[8])
-		links.append(popu[9])
-		links.append(popu[10])
-		links.append(popu[11])
 
-	
 
 
 def download_file():
 
 	# ----------------------------  Downloads Torrent Files  --------------------------------------------- #
 
-	#================================  URL without end variable  ========================================#
 
-	url = 'https://yts.mx/torrent/download' + str(dlink)
+	url = 'https://yts.mx/torrent/download' + str(links[dlink])
 	r = requests.get(url, allow_redirects=True)
-
-	open('bless.torrent', 'wb').write(r.content)
+	movie_title = boss[mname]
+	open(movie_title +'.torrent', 'wb').write(r.content)
 
 
 
 get_pages()
 for mlink in range(len(voss)):
 	get_files()
+	for dlink in range(len(links)):
+		for mname in range(len(boss)):
+			download_file()
+
+
+
 	
