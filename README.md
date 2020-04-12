@@ -11,8 +11,7 @@ Downloads all torrent files
 
 Error
 
-	Script Downloads .torrent file but all files are corrupted ,
-  If user loads torrent file Utorrent displays error " Unable to load : Torrent is not valid bencoding "
+	Script Downloads .torrent file but all files are corrupted ,If user loads torrent file Utorrent displays error " Unable to load : Torrent is not valid bencoding "
 
 -------------------------------------------------------------------------------------------------------------------
 
