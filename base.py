@@ -14,7 +14,10 @@ def get_pages():
 	#================================  URL without end variable  ========================================#
 
 	movielinks = []
-	col_page = urlopen("https://yts.ms/browse-movies?page=1")
+	page = str(p_num)
+	base = "https://yts.ms/browse-movies?page="
+	href1 = base + page
+	col_page = urlopen(href1)
 	soup2 = BeautifulSoup(col_page)
 	for i in soup2.findAll('a' , attrs={'class' : ("text--bold palewhite title") }):
 		movielinks.append(str(i))
@@ -79,19 +82,19 @@ def download_file():
 	# ----------------------------  Downloads Torrent Files  --------------------------------------------- #
 
 
-	url = 'https://yts.mx/torrent/download' + str(links[dlink])
+	url = 'https://yts.ms/torrent/download' + str(links[dlink])
 	r = requests.get(url, allow_redirects=True)
 	movie_title = boss[mname]
-	open(movie_title +'.torrent', 'wb').write(r.content)
+	open(movie_title +'.torrent','wb').write(r.content)
 
 
-
-get_pages()
-for mlink in range(len(voss)):
-	get_files()
-	for dlink in range(len(links)):
-		for mname in range(len(boss)):
-			download_file()
+for p_num in range(1,500):
+	get_pages()
+	for mlink in range(len(voss)):
+		get_files()
+		for dlink in range(len(links)):
+			for mname in range(len(boss)):
+				download_file()
 
 
 
