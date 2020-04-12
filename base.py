@@ -10,8 +10,7 @@ voss = []  #--------------------------------------------------------------------
 def get_pages():
 
 	    # ----------------------------  Scraps Movie page   --------------------------------------------- #
-
-	#================================  URL without end variable  ========================================#
+	    # "https://yts.ms/browse-movies"  scraps this page
 
 	movielinks = []
 	page = str(p_num)
@@ -36,6 +35,7 @@ def get_files():
 
 
 	# ----------------------------  Gets Download Links  --------------------------------------------- #
+	# Scraps movie page for movie download link
 
 
 	href = "https://yts.ms" + voss[mlink]
@@ -56,9 +56,10 @@ def get_files():
 
 	d_num = (len(popu)/2)
 
+	# ----------------------------- appends only 720p torrent link code
+
 	if(d_num == 1.0):
 		links.append(popu[1])
-
 
 	elif(d_num == 2.0):
 		links.append(popu[2])
